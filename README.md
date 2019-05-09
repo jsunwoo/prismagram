@@ -31,3 +31,12 @@ Instagram clone project provided Nomadcoders
 - 고로 server.express.use(logger("dev")); 를 사용할 수 있음
 
 - yarn add graphql-tools merge-graphql-schemas
+
+#2 Setting Up Prisma
+
+#2.0 Introduction to Prisma
+
+- prisma 에서 새로운 서비스 추가
+- 인증 완료 후 prisma init 실행
+- 세팅이 끝나면 generated 폴더는 gitignore 에 추가하고 prisma deploy
+- datamodel.prisma 에서 data model 을 수정할 수 있음
