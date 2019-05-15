@@ -40,3 +40,32 @@ Instagram clone project provided Nomadcoders
 - 인증 완료 후 prisma init 실행
 - 세팅이 끝나면 generated 폴더는 gitignore 에 추가하고 prisma deploy
 - datamodel.prisma 에서 data model 을 수정할 수 있음
+
+#2.1 Datamodel with Prisma
+
+- prisma 설명서에 보면 relation 과 directives 도 있음
+
+#2.2 Testing Prisma OMG
+
+- following: [User!]! @relation(name: "FollowRelation")
+  followers: [User!]! @relation(name: "FollowRelation")
+  으로 하니 자동 상호작용으로 followers/following 이 추가된다
+
+- 쿼리는 다음처럼
+
+mutation {
+  updateUser(
+    data: { followers: { connect: { username: "jun" } } }
+    where: { username: "jin" }
+  ) {
+    username
+    following {
+      username
+    }
+    followers {
+      username
+    }
+  }
+}
+
+
