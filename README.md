@@ -68,4 +68,9 @@ mutation {
   }
 }
 
+#2.3 Integrating Prisma in our Server
 
+- yarn add prisma-client-lib (sayHello.js 에서 아래 줄을 추가할 때 필요)
+- import { prisma } from "../../../../generated/prisma-client";
+- console.log(await prisma.users()); (이렇게 쉽게 가져올수 있음;)
+- 사용자 - 서버 - prisma - DB 구조로 되어있음
