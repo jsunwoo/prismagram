@@ -74,3 +74,17 @@ mutation {
 - import { prisma } from "../../../../generated/prisma-client";
 - console.log(await prisma.users()); (이렇게 쉽게 가져올수 있음;)
 - 사용자 - 서버 - prisma - DB 구조로 되어있음
+
+#2.4 Resolvers with Prisma
+
+- graphql 는 prisma 의 @xx 를 이해하지 못하기 때문에 다 지워주고 models.graphql로 가져옴
+- 가져오니 playground 에 schema 추가되었음 (당연?)
+- allUsers, userById api를 추가하였음
+- prisma 단점이 하나 있는데 recursive 한 공격을 막기 위해 
+- allUsers {
+    username
+    posts{
+      id
+    }
+  }
+- 와 같은 Query 는 못가져오게 막아놓았음
