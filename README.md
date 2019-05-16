@@ -104,3 +104,10 @@ mutation {
 
 - prisma 서버에 있는 createUser 와 내 서버의 createAccount 를 연결하여 계정을 생성함
 
+#3.2 requestSecret Resolver
+
+- randmom list 사이트에서 임의로 명사와 형용사를 가져옴
+- shift + option + i 를 사용해서 배열을 만들었음
+- 형용사와 명사를 섞어 랜덤으로 문장을 만듦 (utils.js)
+- requestSecret 에서 email 으로 user 를 찾아서 loginSecret 칼럼을 수정해 주게끔 하였음
+
