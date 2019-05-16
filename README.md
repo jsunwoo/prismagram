@@ -111,3 +111,11 @@ mutation {
 - 형용사와 명사를 섞어 랜덤으로 문장을 만듦 (utils.js)
 - requestSecret 에서 email 으로 user 를 찾아서 loginSecret 칼럼을 수정해 주게끔 하였음
 
+#3.3 sendMail Function with Nodemailer
+
+- https://sendgrid.com/blog/sending-email-nodemailer-sendgrid/
+- nodemailer 와 sendgrid 를 이용해서 메일로 secret key 를 보내줄 것임
+- yarn add nodemailer-sendgrid-transport
+- yarn add nodemailer
+- sendgrid 에서 아이디/비밀번호를 만들고 .env에 저장했음
+- 링크에 있는 내용대로 이메일 보내지고 스팸함 메일 확인완료
