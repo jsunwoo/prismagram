@@ -2,6 +2,9 @@
 
 Instagram clone project provided Nomadcoders
 
+# User Stories
+
+
 #1 Set Up
 
 #1.0 Setting up the project
@@ -88,3 +91,9 @@ mutation {
     }
   }
 - 와 같은 Query 는 못가져오게 막아놓았음
+
+#3 GraphQL API
+
+#3.0 Planning the API
+
+- Usecases 정리 했음
