@@ -5,6 +5,8 @@ Instagram clone project provided Nomadcoders
 # User Stories
 
 - [x] Create account
+- [x] Request Secret
+- [x] Confirm Secret (Login)
 
 
 #1 Set Up
@@ -119,3 +121,12 @@ mutation {
 - yarn add nodemailer
 - sendgrid 에서 아이디/비밀번호를 만들고 .env에 저장했음
 - 링크에 있는 내용대로 이메일 보내지고 스팸함 메일 확인완료
+
+#3.4 Passport JWT part One
+
+- secret token 일치를 확인하는 confirmSecret API 를 만듦
+- http://www.passportjs.org/
+- https://randomkeygen.com/ 에서 랜덤키 가져와서 .env 에 저장해줌
+- 그리고 JWT 머시기를 만드는데 뭔소린지 하나도 모르겠음 아직까지는
+- 내가 document 를 보고 혼자 할수 있을까 생각해봤는데 불가할 것 같음 처음이라 그러겠지만
+
