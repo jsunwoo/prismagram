@@ -4,6 +4,8 @@ Instagram clone project provided Nomadcoders
 
 # User Stories
 
+- [x] Create account
+
 
 #1 Set Up
 
@@ -97,3 +99,8 @@ mutation {
 #3.0 Planning the API
 
 - Usecases 정리 했음
+
+#3.1 Create Account Resolver
+
+- prisma 서버에 있는 createUser 와 내 서버의 createAccount 를 연결하여 계정을 생성함
+
