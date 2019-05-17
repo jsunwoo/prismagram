@@ -6,6 +6,12 @@ import { adjectives, nouns } from "./words";
 import nodemailer from "nodemailer";
 import sgTransport from "nodemailer-sendgrid-transport";
 
+import jwt from "jsonwebtoken";
+
+/**
+ * this is all about nodemailer
+ */
+
 export const generateSecret = () => {
   const randomNumber = Math.floor(Math.random() * adjectives.length);
   return `${adjectives[randomNumber]} ${nouns[randomNumber]}`;
@@ -32,4 +38,12 @@ export const sendMail = email => {
   };
   const client = nodemailer.createTransport(sgTransport(options));
   return client.sendMail(email);
+};
+
+/**
+ * this is all about JWT
+ */
+
+export const generateToken = id => {
+  return jwt.sign({ id }, process.env.JWT_SECRET);
 };

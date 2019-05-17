@@ -8,7 +8,6 @@ Instagram clone project provided Nomadcoders
 - [x] Request Secret
 - [x] Confirm Secret (Login)
 
-
 #1 Set Up
 
 #1.0 Setting up the project
@@ -61,18 +60,18 @@ Instagram clone project provided Nomadcoders
 - 쿼리는 다음처럼
 
 mutation {
-  updateUser(
-    data: { followers: { connect: { username: "jun" } } }
-    where: { username: "jin" }
-  ) {
-    username
-    following {
-      username
-    }
-    followers {
-      username
-    }
-  }
+updateUser(
+data: { followers: { connect: { username: "jun" } } }
+where: { username: "jin" }
+) {
+username
+following {
+username
+}
+followers {
+username
+}
+}
 }
 
 #2.3 Integrating Prisma in our Server
@@ -87,12 +86,12 @@ mutation {
 - graphql 는 prisma 의 @xx 를 이해하지 못하기 때문에 다 지워주고 models.graphql로 가져옴
 - 가져오니 playground 에 schema 추가되었음 (당연?)
 - allUsers, userById api를 추가하였음
-- prisma 단점이 하나 있는데 recursive 한 공격을 막기 위해 
+- prisma 단점이 하나 있는데 recursive 한 공격을 막기 위해
 - allUsers {
-    username
-    posts{
-      id
-    }
+  username
+  posts{
+  id
+  }
   }
 - 와 같은 Query 는 못가져오게 막아놓았음
 
@@ -130,3 +129,14 @@ mutation {
 - 그리고 JWT 머시기를 만드는데 뭔소린지 하나도 모르겠음 아직까지는
 - 내가 document 를 보고 혼자 할수 있을까 생각해봤는데 불가할 것 같음 처음이라 그러겠지만
 
+#3.5 Passport JWT part Two
+
+- verifyUser 에서 user 값이 없거나 가져올때 오류나는 경우를 처리함
+- 이제 jsonwebtoken 을 만들어보자
+- yarn add jsonwebtkeon
+- 이제 confirmSecret 에서 secret key 값이 맞으면 토큰을 생성해서 반환해준다
+- 이 토큰값을 해석하려면 passport 가 필요함
+- passport.js 에서 오류가 났는데 설명서 보면서 어느정도 고칠수 있을것 같았다
+- 완성된 passport 를 server 에 추가하고
+- server.express.use(passport.authenticate("jwt"));
+- 를 추가하였는데 아직 무슨 기능을 하는지 모르겠다
