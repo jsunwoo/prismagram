@@ -6,7 +6,7 @@ export default {
     confirmSecret: async (_, args) => {
       const { email, secret } = args;
       const user = await prisma.user({ email: email });
-      // console.log(user);
+      console.log(user);
       if (user.loginSecret === secret) {
         // console.log("passed");
         return generateToken(user.id);
