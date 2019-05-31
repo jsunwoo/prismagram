@@ -175,4 +175,4 @@ followers {username}
 7. server.js 위치한 GraphQLServer() 에서 request 가 context 에 추가된다
 8. 비로써 context 에 추가된 request 에서 user 를 확인할 수 있다
 
-#3.7 toggleLike Resolver part One 부터는 프론트강의를 병행하면서 프론트 README 에 같이 작성할 예정
+# 이후 백강의는 프론트강의를 병행하면서 프론트 README 에 같이 작성할 예정
