@@ -7,6 +7,8 @@ Instagram clone project provided Nomadcoders
 - [x] Create account
 - [x] Request Secret
 - [x] Confirm Secret (Login)
+- [x] Edit my profile
+- [x] See user profile
 
 #1 Set Up
 
