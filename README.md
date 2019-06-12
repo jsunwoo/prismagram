@@ -2,6 +2,7 @@
 
 Instagram clone project provided Nomadcoders
 
+
 # User Stories
 
 - [x] Create account
@@ -9,8 +10,14 @@ Instagram clone project provided Nomadcoders
 - [x] Confirm Secret (Login)
 - [x] Edit my profile
 - [x] See user profile
+- [x] See MY profile
+- [x] See the full photo
+
+
 
 #1 Set Up
+
+
 
 #1.0 Setting up the project
 
@@ -22,6 +29,8 @@ Instagram clone project provided Nomadcoders
 
 - script 에 추가함 nodemon --exec babel-node src/server.js
 
+
+
 #1.1 Creating GraphQL Server
 
 - yarn add dotenv
@@ -30,6 +39,8 @@ Instagram clone project provided Nomadcoders
 
 - yarn (global) remove babel-cli
   Requires Babel "^7.0.0-0", but was loaded with "6.26.3". If you are sure you have a compatible version of @babel/core, it is likely that something in your build process is loading the wrong version.
+
+
 
 #1.2 Setting Up the Server like the Pros
 
@@ -40,7 +51,11 @@ Instagram clone project provided Nomadcoders
 
 - yarn add graphql-tools merge-graphql-schemas
 
+
+
 #2 Setting Up Prisma
+
+
 
 #2.0 Introduction to Prisma
 
@@ -49,9 +64,13 @@ Instagram clone project provided Nomadcoders
 - 세팅이 끝나면 generated 폴더는 gitignore 에 추가하고 prisma deploy
 - datamodel.prisma 에서 data model 을 수정할 수 있음
 
+
+
 #2.1 Datamodel with Prisma
 
 - prisma 설명서에 보면 relation 과 directives 도 있음
+
+
 
 #2.2 Testing Prisma OMG
 
@@ -70,6 +89,8 @@ followers {username}
 }
 }
 
+
+
 #2.3 Integrating Prisma in our Server
 
 - yarn add prisma-client-lib (sayHello.js 에서 아래 줄을 추가할 때 필요)
@@ -77,7 +98,9 @@ followers {username}
 - console.log(await prisma.users()); (이렇게 쉽게 가져올수 있음;)
 - 사용자 - 서버 - prisma - DB 구조로 되어있음
 
+
 #2.4 Resolvers with Prisma
+
 
 - graphql 는 prisma 의 @xx 를 이해하지 못하기 때문에 다 지워주고 models.graphql로 가져옴
 - 가져오니 playground 에 schema 추가되었음 (당연?)
@@ -89,15 +112,22 @@ followers {username}
   }
 - 와 같은 Query 는 못가져오게 막아놓았음
 
+
+
 #3 GraphQL API
+
 
 #3.0 Planning the API
 
 - Usecases 정리 했음
 
+
+
 #3.1 Create Account Resolver
 
 - prisma 서버에 있는 createUser 와 내 서버의 createAccount 를 연결하여 계정을 생성함
+
+
 
 #3.2 requestSecret Resolver
 
@@ -105,6 +135,8 @@ followers {username}
 - shift + option + i 를 사용해서 배열을 만들었음
 - 형용사와 명사를 섞어 랜덤으로 문장을 만듦 (utils.js)
 - requestSecret 에서 email 으로 user 를 찾아서 loginSecret 칼럼을 수정해 주게끔 하였음
+
+
 
 #3.3 sendMail Function with Nodemailer
 
@@ -116,6 +148,8 @@ followers {username}
 - sendgrid 에서 아이디/비밀번호를 만들고 .env에 저장했음
 - 링크에 있는 내용대로 이메일 보내지고 스팸함 메일 확인완료
 
+
+
 #3.4 Passport JWT part One
 
 - secret token 일치를 확인하는 confirmSecret API 를 만듦
@@ -123,6 +157,8 @@ followers {username}
 - https://randomkeygen.com/ 에서 랜덤키 가져와서 .env 에 저장해줌 (JWT_SECRET)
 - 그리고 JWT 머시기를 만드는데 뭔소린지 하나도 모르겠음 아직까지는
 - 내가 document 를 보고 혼자 할수 있을까 생각해봤는데 불가할 것 같음 처음이라 그러겠지만
+
+
 
 #3.5 Passport JWT part Two
 
@@ -135,6 +171,8 @@ followers {username}
 - 완성된 passport 를 server 에 추가하고
 - server.express.use(passport.authenticate("jwt"));
 - 를 추가하였는데 아직 무슨 기능을 하는지 모르겠다
+
+
 
 #3.6 Passport JWT part Three
 
@@ -177,4 +215,71 @@ followers {username}
 7. server.js 위치한 GraphQLServer() 에서 request 가 context 에 추가된다
 8. 비로써 context 에 추가된 request 에서 user 를 확인할 수 있다
 
-# 이후 백강의는 프론트강의를 병행하면서 프론트 README 에 같이 작성할 예정
+
+
+#3.7 toggleLike Resolver part One
+
+- 3.11 을 보다가 middlewares.js 가 필요해서 여기까지 올라왔다
+- request 에서 user 를 찾아서 없으면 error 를 던져주는 역할이네 (isAuthenticated)
+
+
+
+#3.11 editUser seeUser Resolver <1>
+
+- 보고있는데 middlewares.js 가 필요하다
+
+- 유저 데이터를 수정하는 editUser 파일을 만들었다
+- isAuthenticated 를 context 에 넣었다 (server.js)
+- 테스트 해봤는데 기존 데이터도 잘 보존하고 새로운 데이터로 잘 바꿔준다 끝내주네 프리즈마
+
+- return 에서는 굳이 promise 를 안써도 된다
+- 왜냐하면 마지막 이기때문에 자동으로 return 할 내용을 기다려주기 때문
+
+- 기존의 userById 와 같은 기능을 하는 seeUser 를 만들었다 (아이디로 유저를 찾아주는 것임)
+
+
+
+#3.12 me Resolver + Prisma's Limitations
+
+- me 라는 API 를 만들고 있다
+
+- return prisma.user({ id: user.id }).posts();
+- 를 니콜라스가 시도했는데 잘 안됐고 덕분에 나도 잘 모르겠다?;
+- 별거 아니였고 그냥 user 에 있는 posts 컬럼을 가져오는 것이었다
+- 동일하게 following 으로 실험해보니 잘됨
+
+- return prisma.user({ id: user.id }).$fragment();
+- 로 바꿔서 시도하는중
+- fragments.js 를 만들었다 (아마 이정보 저정보 가져와서 합치는 모양 조각이란 뜻이니까)
+- 예전에 recursive 공격 방지하기 위해 여러 테이블에서 못가져오게 막아놨다고 했지?
+- 그거의 해결방법이 fragment 이다
+- fragment 에 없는 column 은 null 로 반환해준다 (꼭 fragment 에 기입할것)
+
+- fragment 를 안쓰려면 다음과 같이 할수있다
+- query 에서 부터 user, posts 두테이블을 한꺼번에 요청한다
+- const userProfile = await prisma.user({ id: user.id });
+- const posts = await prisma.user({ id: user.id }).posts();
+- 다음과 같이 user, posts 를 두개 다불러온뒤 return 해준다
+
+
+
+#3.13 See Full Posts
+
+- 보고있는데 seeUser API 가 필요하다
+
+- seeUser 쿼리를 User 말고 UserProfile 로 리턴 받게 함
+- UserProfile 은 models 에 추가했고 User, Posts 두개 다를 포함한 타입임
+- 그리고 seeUser.js 에서 user, post 두개 다 받아와서 리턴을 해주게 만들었음
+
+- seeFullPost API 를 만들기 시작했다!
+- Post 와 Post 에 있는 Comments, 그리고 좋아요 숫자를 반환해 주는 API 인것이다!
+- https://www.prisma.io/docs/prisma-client/basic-data-access/reading-data-JAVASCRIPT-rsc2/#aggregations
+- 여기서 count 를 가지고와서 Like 수를 셀 계획인가봄 ( 이걸 알고있어야 찾을수 있을텐데 알고 있다는게 신기하다 )
+- 니코의 강의를 보지도 않고 혼자서 어제 갖고 있던 문제들을 다 해결했다, 어제는 어려울수 있지 오늘은 아니다
+
+- toggleLike 을 사용하는데 나중에 하자.. 너무 많이 왔다갔다 했다
+
+- COMMENT_FRAGMENT 라는 fragment 를 만들었다
+- comment 를 불러올 때 누가 작성했는지 확인하기 위해 user 를 같이 부르는데 이때 관계가 필요해서 fragment 를 사용함
+
+- 그리고 아무래도 앞에서 부터 듣는게 맞는것 같다..

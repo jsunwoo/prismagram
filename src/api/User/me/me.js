@@ -1,5 +1,5 @@
 import { prisma } from "../../../../generated/prisma-client";
-import { USER_FRAGMENT } from "../../../fragments";
+// import { USER_FRAGMENT } from "../../../fragments";
 
 export default {
   Query: {
