@@ -99,8 +99,8 @@ followers {username}
 - 사용자 - 서버 - prisma - DB 구조로 되어있음
 
 
-#2.4 Resolvers with Prisma
 
+#2.4 Resolvers with Prisma
 
 - graphql 는 prisma 의 @xx 를 이해하지 못하기 때문에 다 지워주고 models.graphql로 가져옴
 - 가져오니 playground 에 schema 추가되었음 (당연?)
@@ -115,6 +115,7 @@ followers {username}
 
 
 #3 GraphQL API
+
 
 
 #3.0 Planning the API
@@ -220,11 +221,23 @@ followers {username}
 #3.7 toggleLike Resolver part One
 
 - 3.11 을 보다가 middlewares.js 가 필요해서 여기까지 올라왔다
-- request 에서 user 를 찾아서 없으면 error 를 던져주는 역할이네 (isAuthenticated)
+- request 에서 user 를 찾아서 없으면 error 를 던져주는 역할을 하는 isAuthenticated 를 만들었다
+- 만들고 context 에 넣어 범용적으로 사용하게 해놓았다!! (다른강의인가?)
+
+- token 을 헤더에 넣고 toggleLike API 가 playground 에서 잘 돌아가는 것 까지 확인했다
+
+- https://www.prisma.io/docs/prisma-client/features/check-existence-TYPESCRIPT-pyl2/#overview
+- prisma 진짜 끝장나는게.. 값이 있는지 없는지 찾아서 true/false 로 반환해 주는 기능이 자체적으로 있다.. 대박
+- 그렇게 prisma.$exist 를 만들고 있다
+
+- 이 위대한 $exist 로 user.id, postID 값으로 like 가 있는지 확인해준다
+- 있다면 지울것이고 (아직 구현은 안했고 To Do로 남겨놓았음)
+- 없다면 이 user 와 post 를 connect 로 연결한 새로운 like 를 만들것이다
+- 그렇게 toggle 을 완료하면 true 값을 반환, 비동기 중에 오류가 나면 false 를 반환하게 만들었다
 
 
 
-#3.11 editUser seeUser Resolver <1>
+#3.11 editUser seeUser Resolver
 
 - 보고있는데 middlewares.js 가 필요하다
 
