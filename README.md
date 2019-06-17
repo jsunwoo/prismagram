@@ -3,6 +3,7 @@
 Instagram clone project provided Nomadcoders
 
 
+
 # User Stories
 
 - [x] Create account
@@ -12,6 +13,8 @@ Instagram clone project provided Nomadcoders
 - [x] Comment on a photo
 - [x] Search by user
 - [x] Search by location
+- [x] Follow User
+- [x] Unfollow User
 - [x] Edit my profile
 - [x] See user profile
 - [x] See MY profile
@@ -111,8 +114,10 @@ updateUser(data: { followers: { connect: { username: "jun" } } }where: { usernam
 - allUsers, userById api를 추가하였음
 - prisma 단점이 하나 있는데 recursive 한 공격을 막기 위해
 - allUsers {
-  username
-  posts{ id }
+    username
+    posts{
+        id
+    }
   }
 - 와 같은 Query 는 못가져오게 막아놓았음
 
@@ -203,7 +208,7 @@ updateUser(data: { followers: { connect: { username: "jun" } } }where: { usernam
 - 그래서 이렇게 context 로 request 를 보냈고 allUsers.js 에서 console.log 를 찍어보았다
 - 이거또한 겁나 방대한 자료가 나온다..
 - allUsers query 를 보낼때 HTTP HEADERS 에
-- {"Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNqdmx0cHQ4eTExMG8wYjk5ZDRwMW1vOHEiLCJpYXQiOjE1NTkwMjg3MzF9.KFcnP2bqgS6audZqp2mmkI9mGLtzIZB5_ZSdb8KNLcM"}
+- {"Authorization" : "Bearer token값"}
 - 같이 추가해서 보냈더니 log 에 token 값이 해석된 user 가 추가되어 나왔다
 
 - 최종정리
@@ -261,10 +266,33 @@ updateUser(data: { followers: { connect: { username: "jun" } } }where: { usernam
 - 단 세줄만에 term 을 포함하고 있는 모든 user 를 리턴해주는 API 를 만들었다
 - prisma 의 위대함에 또 한번 놀라고 갑니다..
 - prisma playground 에 가보면 where 절에 뭘 쓸수 있는지 다 나와있다 (많기도하다)
+- users, posts, likes 등 복수형만 저 다양한 where 절을 사용할 수 있다 (contain, start_with 와 같은)
+- 왜냐면 복수로 리턴을 받아야 하기 때문
 
 - 비슷하게 searchPost API 를 만들어 주었다
 - searchUser 는 where 절에 contains 를 썼지만 searchPost 는 start with 를 썼다
 - 확인해 보니 아주 잘된다 나중에 minimum required 를 넣어서 몇글자 이상만 검색 되게끔 해도 좋을것 같다
+
+
+- 그리고 async 를 await 도 없는데 꼭 넣어야 하는지(?) 그게 궁금해졌다
+
+
+
+#3.10 follow unfollow Resolver
+
+- follow 를 만들었다
+- connect 에 id 를 가진 user 를 찾아주는 기능까지 포함되어 있나보다 따로만드려 했으나 필요없었다
+- 정말 대단한 prisma 인 것이었다!!
+- 그리고 following 하니까 상대방 follower 에 내가 자동적으로 추가되었다
+- datamodel 에서 정의한 relation 에 의한 효과였다
+- 정말 대단한 prisma 이었던 것이었다!!!!
+
+- 그리고 동일하게 unfollow API 를 만들었다
+- connect 를 disconnect(안보고 만들어보다가 설마하고 해봤는데 있었다.. prisma)로 바꾼것밖에 없는 거의 동일한 기능
+
+- 그리고 confirmSecret 에서 loginSecret 확인한 뒤 초기화 시켜주게끔 바꾸었다
+
+- 그리고 token 부분 전체적인 프로세스 한번 더 복습해야 할듯 아직도 잘 모르겠다
 
 
 
