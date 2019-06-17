@@ -10,6 +10,8 @@ Instagram clone project provided Nomadcoders
 - [x] Confirm Secret (Login)
 - [x] Like / Unlike a photo
 - [x] Comment on a photo
+- [x] Search by user
+- [x] Search by location
 - [x] Edit my profile
 - [x] See user profile
 - [x] See MY profile
@@ -84,11 +86,11 @@ Instagram clone project provided Nomadcoders
 
 mutation {
 updateUser(data: { followers: { connect: { username: "jun" } } }where: { username: "jin" })
-{
-username
-following {username}
-followers {username}
-}
+    {
+        username
+        following {username}
+        followers {username}
+    }
 }
 
 
@@ -251,6 +253,18 @@ followers {username}
 
 - 그리고 addComment API 를 만들었다
 - prisma 가 정말 아름답긴 아릅답다.. 이렇게 간단하게 컬럼을 추가하고 다른 컬럼을 연결하고 할수 있다니!
+
+
+
+#3.9 searchUser and searchImage resolver
+
+- 단 세줄만에 term 을 포함하고 있는 모든 user 를 리턴해주는 API 를 만들었다
+- prisma 의 위대함에 또 한번 놀라고 갑니다..
+- prisma playground 에 가보면 where 절에 뭘 쓸수 있는지 다 나와있다 (많기도하다)
+
+- 비슷하게 searchPost API 를 만들어 주었다
+- searchUser 는 where 절에 contains 를 썼지만 searchPost 는 start with 를 썼다
+- 확인해 보니 아주 잘된다 나중에 minimum required 를 넣어서 몇글자 이상만 검색 되게끔 해도 좋을것 같다
 
 
 
