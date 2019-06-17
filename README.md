@@ -8,6 +8,8 @@ Instagram clone project provided Nomadcoders
 - [x] Create account
 - [x] Request Secret
 - [x] Confirm Secret (Login)
+- [x] Like / Unlike a photo
+- [x] Comment on a photo
 - [x] Edit my profile
 - [x] See user profile
 - [x] See MY profile
@@ -234,6 +236,21 @@ followers {username}
 - 있다면 지울것이고 (아직 구현은 안했고 To Do로 남겨놓았음)
 - 없다면 이 user 와 post 를 connect 로 연결한 새로운 like 를 만들것이다
 - 그렇게 toggle 을 완료하면 true 값을 반환, 비동기 중에 오류가 나면 false 를 반환하게 만들었다
+
+
+
+#3.8 toggleLike and addComment Resolver
+
+- deleteLike 보다는 deleteManyLikes 를 쓰기로 했다
+- 이유는 deleteLike 에서는 Like 의 아이디가 필요한데 지금 갖고있는 정보는 user, post 이기 때문에 사용할 수 없다
+- user, post 를 and 연산자로 사용하여 Like 를 찾았고 이 연산자를 이용하여 deleteManyLikes 도 했다
+- 오탈자로 오류가 잠깐 있었지만 고치고 잘 되는 지 확인했다
+- 그리고 null 처리에 대해 생각했다 필요없을 것 같은 부분도 대비를 해야 하는가에 대해서
+
+- API 를 table 별로 관리하는 것도 괜찮은 생각인것 같다
+
+- 그리고 addComment API 를 만들었다
+- prisma 가 정말 아름답긴 아릅답다.. 이렇게 간단하게 컬럼을 추가하고 다른 컬럼을 연결하고 할수 있다니!
 
 
 
